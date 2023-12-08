@@ -1,5 +1,5 @@
 // src/FacebookPageGrid.js
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./FacebookData.css";
 import Loader from "./Loader";
 import Pattern from "./Pattern";

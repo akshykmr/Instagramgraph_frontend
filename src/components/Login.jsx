@@ -11,7 +11,7 @@ const Login = ({ loginStatus }) => {
   };
 
   return (
-    <div className="container">
+    <div className="containerr">
       <div className="glassmorphism">
         <h2>Login with Facebook</h2>
         <button onClick={handleLogin} className="login-button">
