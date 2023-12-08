@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaFacebook } from 'react-icons/fa';
+// import { FaFacebook } from 'react-icons/fa';
 import './Login.css';
 import { useNavigate } from 'react-router-dom';
 
@@ -15,7 +15,7 @@ const Login = ({ loginStatus }) => {
       <div className="glassmorphism">
         <h2>Login with Facebook</h2>
         <button onClick={handleLogin} className="login-button">
-          <FaFacebook className="facebook-icon" />
+          {/* <FaFacebook className="facebook-icon" /> */}
           Login with Facebook
         </button>
         <button className="login-button" onClick={() => navigate('/auth')}>
