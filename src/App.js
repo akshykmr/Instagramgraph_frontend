@@ -1,6 +1,6 @@
 import "./App.css";
 import Login from "././components/Login";
-import FacebookPageData from "../../client/src/components/FacebookData";
+import FacebookPageData from "././components/FacebookData";
 import Success from './components/Success'
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
