@@ -40,7 +40,7 @@ const Login = () => {
         console.log("Login success:", data);
         toast.success(data.message);
         if(data.instaUserPresent === true){
-          localStorage.setItem("download", "true");
+          localStorage.setItem("download", "false");
         }
         localStorage.setItem("token", data.token)
         setTimeout(() => {

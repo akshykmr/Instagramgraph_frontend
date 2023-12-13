@@ -1,3 +1,4 @@
+/* eslint-disable no-lone-blocks */
 // src/FacebookPageGrid.js
 import React, { useState, useEffect } from "react";
 import "./Home.css";
@@ -13,35 +14,37 @@ const FacebookPageGrid = () => {
 
   const [fetchedData, setFetchedData] = useState();
 
-  useEffect(() => {
-    if(status === "true"){
-
-    const getUser = () => {
-      fetch("http://localhost:5000/instagram/auth/success", {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          Authorization: token,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Credentials": true,
-        },
+  const getUser = () => {
+    fetch("http://localhost:5000/instagram/auth/success", {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        Authorization: token,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Credentials": true,
+      },
+    })
+      .then((response) => {
+        if (response.status === 200) return response.json();
+        throw new Error("authentication has been failed!");
       })
-        .then((response) => {
-          if (response.status === 200) return response.json();
-          throw new Error("authentication has been failed!");
-        })
-        .then((resObject) => {
-          setFetchedData(resObject.data);
-          console.log(resObject,'fetchedData');
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
-    getUser();
-  }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+      .then((resObject) => {
+        setFetchedData(resObject.data);
+        console.log(resObject, "fetchedData");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    if (status === "true") {
+      getUser();
+    } else if (status === "false") {
+      getUser();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [status]);
 
   // Sample data for Facebook pages
@@ -49,27 +52,25 @@ const FacebookPageGrid = () => {
   //   window.open("http://localhost:5000/signout", "_self");
   // };
 
-
-
   const loginWithInsta = async () => {
     try {
       const headers = { Authorization: token };
-      const response = await fetch(`http://localhost:5000/instagram/auth`, { headers });
+      const response = await fetch(`http://localhost:5000/instagram/auth`, {
+        headers,
+      });
 
       const data = await response.json();
       if (data.success === true) {
         // alert("valid token");
-        window.open(`http://localhost:5000/instagram/login`, "_self") // _self is a parameter that will open this address on same tab on browser
-      }
-      else {
-      toast.error("Invalid token");
+        window.open(`http://localhost:5000/instagram/login`, "_self"); // _self is a parameter that will open this address on same tab on browser
+      } else {
+        toast.error("Invalid token");
       }
     } catch (error) {
       toast.error("Invalid token");
       console.log(error, "error occured");
     }
   };
-
 
   return (
     <>
@@ -104,23 +105,32 @@ const FacebookPageGrid = () => {
           </div>
         </div> */}
         <div className="profile-info">
-          <h2 className="username">User Name :   <p className="bg-gray-600 ml-4 pl-2 pr-2 rounded-2xl" >{fetchedData?.instaUser.username}</p></h2>
+          <h2 className="username">
+            User Name :{" "}
+            <p className="bg-gray-600 ml-4 pl-2 pr-2 rounded-2xl">
+              {fetchedData?.instaUser.username}
+            </p>
+          </h2>
           <p className="bio">{fetchedData?.instaUser.biography}</p>
         </div>
         <div className="profile-info">
           <span className="heading_">
             <h4 className="username">MEDIA</h4>
-            <button onClick={()=>loginWithInsta()} >
-            <InstaButton />
+            <span className="flex flex-row justify-center items-center gap-2">
+  <p className="font-extrabold">Import Video from :</p>
+  <button onClick={() => loginWithInsta()}>
+    <InstaButton />
+  </button>
+</span>
 
-            </button>
           </span>
 
           {fetchedData?.media ? (
             <>
+            
               <div className="videoloader-container">
+               
                 {fetchedData?.media.map((video) => (
-                 
                   <video
                     className="videocon"
                     key={video.id}
@@ -132,14 +142,14 @@ const FacebookPageGrid = () => {
                     <source src={video.video_url} type="video/mp4" />
                     Your browser does not support the video tag.
                   </video>
-
                 ))}
               </div>
             </>
           ) : (
-            <>
+            <> <h1 className="border-2 text-center font-extrabold">NO DATA FOUND,  PLEASE IMPORT DATA FROM INSTAGRAM</h1>
               <div className="videoloader-container">
-                {[...Array(6)].map((_, index) => (
+             
+                {[...Array(2)].map((_, index) => (
                   <div className="videoloader" key={index}>
                     <VideoLoader />
                   </div>
@@ -149,20 +159,34 @@ const FacebookPageGrid = () => {
           )}
         </div>
         <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
       </div>
     </>
   );
 };
 
 export default FacebookPageGrid;
+
+{
+  /*
+
+Hello Team,
+
+Please find below details regarding instagram graph api project,
+
+App link : https://main--graphapi.netlify.app/home
+Login(local user) : 
+
+
+*/
+}
