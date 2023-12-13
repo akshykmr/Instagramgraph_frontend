@@ -44,7 +44,7 @@ const Login = () => {
         }
         localStorage.setItem("token", data.token)
         setTimeout(() => {
-          // navigate("/home");
+          navigate("/home");
         }, 2000);
       } else {
         console.error("Login failed");

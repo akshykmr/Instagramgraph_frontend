@@ -102,11 +102,11 @@ const FacebookPageGrid = () => {
               <span className="label">Following</span>
             </div>
           </div>
-        </div>
-        <div className="profile-info">
-          <h2 className="username">{fetchedData?.instaUser.username}</h2>
-          <p className="bio">{fetchedData?.instaUser.biography}</p>
         </div> */}
+        <div className="profile-info">
+          <h2 className="username">User Name :   <p className="bg-gray-600 ml-4 pl-2 pr-2 rounded-2xl" >{fetchedData?.instaUser.username}</p></h2>
+          <p className="bio">{fetchedData?.instaUser.biography}</p>
+        </div>
         <div className="profile-info">
           <span className="heading_">
             <h4 className="username">MEDIA</h4>
@@ -118,8 +118,9 @@ const FacebookPageGrid = () => {
 
           {fetchedData?.media ? (
             <>
-              <div className="img_grid">
+              <div className="videoloader-container">
                 {fetchedData?.media.map((video) => (
+                 
                   <video
                     className="videocon"
                     key={video.id}
@@ -131,6 +132,7 @@ const FacebookPageGrid = () => {
                     <source src={video.video_url} type="video/mp4" />
                     Your browser does not support the video tag.
                   </video>
+
                 ))}
               </div>
             </>

@@ -54,6 +54,7 @@
    
    .username {
      margin: 0;
+     display: flex;
    }
    
    .bio {
@@ -76,9 +77,10 @@
    }
    .videocon{
      border: 2px solid;
-     width: 100px;
-     height: 100px;
-   }
+     width: 400px!important; 
+     height: 400px !important;
+
+   }  
    .logoutbtn{
      margin-left: 95%;
    }
@@ -87,6 +89,7 @@
      flex-wrap: wrap;
      justify-content: center;
      padding: 20px 20px 20px 80px;
+     gap: 20px;
    }
    
    .videoloader {
