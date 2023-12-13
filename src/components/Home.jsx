@@ -33,7 +33,7 @@ const FacebookPageGrid = () => {
         })
         .then((resObject) => {
           setFetchedData(resObject.data);
-          console.log(resObject.data,'fetchedData');
+          console.log(resObject,'fetchedData');
         })
         .catch((err) => {
           console.log(err);

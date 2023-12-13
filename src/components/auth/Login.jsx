@@ -39,9 +39,12 @@ const Login = () => {
       if (data.success === true) {
         console.log("Login success:", data);
         toast.success(data.message);
+        if(data.instaUserPresent === true){
+          localStorage.setItem("download", "true");
+        }
         localStorage.setItem("token", data.token)
         setTimeout(() => {
-          navigate("/home");
+          // navigate("/home");
         }, 2000);
       } else {
         console.error("Login failed");
