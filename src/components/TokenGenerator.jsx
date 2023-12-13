@@ -13,7 +13,7 @@ const TokenGenerator = () => {
 
       console.log("checking for code");
       // Extract the access code from the current URL
-      
+
       const urlParams = new URLSearchParams(window.location.search);
       const code = urlParams.get("code");
 
@@ -53,6 +53,7 @@ const TokenGenerator = () => {
     return () => {
       document.removeEventListener("DOMContentLoaded", handleInstagramCallback);
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Empty dependency array ensures the effect runs only once on mount
 
   return (
