@@ -9,12 +9,12 @@ import "react-toastify/dist/ReactToastify.css";
 const FacebookPageGrid = () => {
   // const BASE_URL = process.env.REACT_APP_BASE_URL;
   const token = localStorage.getItem("token");
-  const isDataDownloadFromInsta = localStorage.getItem("download");
+  const status = localStorage.getItem("download");
 
   const [fetchedData, setFetchedData] = useState();
 
   useEffect(() => {
-    if(isDataDownloadFromInsta === "true"){
+    if(status === "true"){
 
     const getUser = () => {
       fetch("http://localhost:5000/instagram/auth/success", {
@@ -41,7 +41,8 @@ const FacebookPageGrid = () => {
     };
     getUser();
   }
-  }, [isDataDownloadFromInsta]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [status]);
 
   // Sample data for Facebook pages
   // const logout = () => {
