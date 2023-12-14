@@ -6,7 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
-  // const BASE_URL = process.env.REACT_APP_BASE_URL;
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
   const navigate = useNavigate();
 
   const [loginData, setLoginData] = useState({
@@ -22,13 +22,13 @@ const Login = () => {
     });
   };
 
-  console.log("login", loginData);
+  console.log("login", BASE_URL);
 
   const handleLogin = async (e) => {
     
     e.preventDefault();
     try {
-      const response = await fetch(`http://localhost:5000/login_as_local_user`, {
+      const response = await fetch(`${BASE_URL}login_as_local_user`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

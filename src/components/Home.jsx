@@ -3,19 +3,23 @@
 import React, { useState, useEffect } from "react";
 import "./Home.css";
 import VideoLoader from "./../components/loader/VideoLoader";
+import { useNavigate } from "react-router-dom";
+
 import InstaButton from "./../components/button/Button";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import LogoutBtn from "./button/Logout/Logout";
 
 const FacebookPageGrid = () => {
-  // const BASE_URL = process.env.REACT_APP_BASE_URL;
+  const navigate = useNavigate();
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
   const token = localStorage.getItem("token");
   const status = localStorage.getItem("download");
 
   const [fetchedData, setFetchedData] = useState();
 
   const getUser = () => {
-    fetch("http://localhost:5000/instagram/auth/success", {
+    fetch(`${BASE_URL}instagram/auth/success`, {
       method: "GET",
       credentials: "include",
       headers: {
@@ -55,14 +59,14 @@ const FacebookPageGrid = () => {
   const loginWithInsta = async () => {
     try {
       const headers = { Authorization: token };
-      const response = await fetch(`http://localhost:5000/instagram/auth`, {
+      const response = await fetch(`${BASE_URL}instagram/auth`, {
         headers,
       });
 
       const data = await response.json();
       if (data.success === true) {
         // alert("valid token");
-        window.open(`http://localhost:5000/instagram/login`, "_self"); // _self is a parameter that will open this address on same tab on browser
+        window.open(`${BASE_URL}instagram/login`, "_self"); // _self is a parameter that will open this address on same tab on browser
       } else {
         toast.error("Invalid token");
       }
@@ -71,6 +75,12 @@ const FacebookPageGrid = () => {
       console.log(error, "error occured");
     }
   };
+
+  const handleLogout = () =>{
+    localStorage.removeItem("download"); 
+    localStorage.removeItem("token"); 
+    navigate('/')
+  }
 
   return (
     <>
@@ -105,31 +115,41 @@ const FacebookPageGrid = () => {
           </div>
         </div> */}
         <div className="profile-info">
-          <h2 className="username">
-            User Name :{" "}
-            <p className="bg-gray-600 ml-4 pl-2 pr-2 rounded-2xl">
-              {fetchedData?.instaUser.username}
-            </p>
-          </h2>
-          <p className="bio">{fetchedData?.instaUser.biography}</p>
+          <span className="flex flex-row justify-between">
+            {!fetchedData?.instaUser.username ? (
+              <h2 className="username">
+              INSTAGRAM GRAPH API
+            </h2>
+            ) : (
+              <>
+                <h2 className="username">
+                  User Name :{" "}
+                  <p className=" ml-4 pl-2 pr-2 rounded-2xl">
+                    {fetchedData?.instaUser.username}
+                  </p>
+                </h2>
+              </>
+            )}
+            <button onClick={handleLogout}>
+              <LogoutBtn />
+            </button>
+          </span>
+          {/* <p className="bio">{fetchedData?.instaUser.biography}</p> */}
         </div>
         <div className="profile-info">
           <span className="heading_">
             <h4 className="username">MEDIA</h4>
             <span className="flex flex-row justify-center items-center gap-2">
-  <p className="font-extrabold">Import Video from :</p>
-  <button onClick={() => loginWithInsta()}>
-    <InstaButton />
-  </button>
-</span>
-
+              <p className="font-extrabold">Import Video from :</p>
+              <button onClick={() => loginWithInsta()}>
+                <InstaButton />
+              </button>
+            </span>
           </span>
 
           {fetchedData?.media ? (
             <>
-            
               <div className="videoloader-container">
-               
                 {fetchedData?.media.map((video) => (
                   <video
                     className="videocon"
@@ -146,9 +166,12 @@ const FacebookPageGrid = () => {
               </div>
             </>
           ) : (
-            <> <h1 className="border-2 text-center font-extrabold">NO DATA FOUND,  PLEASE IMPORT DATA FROM INSTAGRAM</h1>
+            <>
+              {" "}
+              <h1 className="border-2 text-center font-extrabold">
+                NO DATA FOUND, PLEASE IMPORT DATA FROM INSTAGRAM
+              </h1>
               <div className="videoloader-container">
-             
                 {[...Array(2)].map((_, index) => (
                   <div className="videoloader" key={index}>
                     <VideoLoader />
@@ -180,12 +203,6 @@ export default FacebookPageGrid;
 {
   /*
 
-Hello Team,
-
-Please find below details regarding instagram graph api project,
-
-App link : https://main--graphapi.netlify.app/home
-Login(local user) : 
 
 
 */

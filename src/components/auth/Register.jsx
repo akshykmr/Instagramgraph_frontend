@@ -5,7 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Register = () => {
-  // const BASE_URL = process.env.REACT_APP_BASE_URL;
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
 
   const navigate = useNavigate();
 
@@ -30,7 +30,7 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch(`http://localhost:5000/signup_as_local_user`, {
+      const response = await fetch(`${BASE_URL}signup_as_local_user`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

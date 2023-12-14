@@ -6,6 +6,7 @@ import VideoLoader from "./loader/VideoLoader";
 const TokenGenerator = () => {
 
   const token = localStorage.getItem("token");
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
 
   useEffect(() => {
 
@@ -20,7 +21,7 @@ const TokenGenerator = () => {
       if (code) {
         console.log("if code found...");
         const response = await fetch(
-          "http://localhost:5000/instagram/auth/fetchUserData",
+          `${BASE_URL}/instagram/auth/fetchUserData`,
           {
             method: "POST",
             headers: {
@@ -73,3 +74,7 @@ const TokenGenerator = () => {
 };
 
 export default TokenGenerator;
+
+
+
+

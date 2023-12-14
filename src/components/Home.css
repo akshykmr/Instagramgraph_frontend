@@ -1,5 +1,4 @@
 .maincontainer{
-    border: 2px solid;
     width: fit-content;
     height: fit-content;
  }
@@ -72,11 +71,11 @@
      flex-wrap: wrap;
      justify-content: space-between;
      /* gap: 20px; */
-     border:1px solid;
+     /* border:1px solid; */
  
    }
    .videocon{
-     border: 2px solid;
+     /* border: 2px solid; */
      width: 400px!important; 
      height: 400px !important;
 
