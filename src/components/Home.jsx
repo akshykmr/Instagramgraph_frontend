@@ -76,11 +76,17 @@ const FacebookPageGrid = () => {
     }
   };
 
-  const handleLogout = () =>{
-    localStorage.removeItem("download"); 
-    localStorage.removeItem("token"); 
-    navigate('/')
-  }
+  const handleLogout = () => {
+    localStorage.removeItem("download");
+    localStorage.removeItem("token");
+    const myWindow = window.open("https://www.instagram.com/accounts/logout/", "_blank");
+
+    setTimeout(() => {
+      myWindow.close();
+    }, 100);
+
+    navigate("/");
+  };
 
   return (
     <>
@@ -117,9 +123,7 @@ const FacebookPageGrid = () => {
         <div className="profile-info">
           <span className="flex flex-row justify-between">
             {!fetchedData?.instaUser.username ? (
-              <h2 className="username">
-              INSTAGRAM GRAPH API
-            </h2>
+              <h2 className="username">INSTAGRAM GRAPH API</h2>
             ) : (
               <>
                 <h2 className="username">
