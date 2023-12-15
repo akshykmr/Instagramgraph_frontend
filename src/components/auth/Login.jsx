@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useState , useRef} from "react";
 // import { FaFacebook } from 'react-icons/fa';
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import LoadingBar from 'react-top-loading-bar'
 
 const Login = () => {
+  const ref = useRef(null)
   const BASE_URL = process.env.REACT_APP_BASE_URL;
   const navigate = useNavigate();
 
@@ -25,7 +27,7 @@ const Login = () => {
   console.log("login", BASE_URL);
 
   const handleLogin = async (e) => {
-    
+    ref.current.continuousStart()
     e.preventDefault();
     try {
       const response = await fetch(`${BASE_URL}login_as_local_user`, {
@@ -43,6 +45,7 @@ const Login = () => {
           localStorage.setItem("download", "false");
         }
         localStorage.setItem("token", data.token)
+        ref.current.complete()
         setTimeout(() => {
           navigate("/home");
         }, 2000);
@@ -78,6 +81,7 @@ const Login = () => {
 
   return (
     <div className="containerr">
+       <LoadingBar color='#f11946' ref={ref} />
       <form className="form_container">
         <div className="logo_container" />
         <div className="title_container">

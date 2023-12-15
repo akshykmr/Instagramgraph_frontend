@@ -1,6 +1,6 @@
 /* eslint-disable no-lone-blocks */
 // src/FacebookPageGrid.js
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect ,useRef} from "react";
 import "./Home.css";
 import VideoLoader from "./../components/loader/VideoLoader";
 import { useNavigate } from "react-router-dom";
@@ -9,8 +9,12 @@ import InstaButton from "./../components/button/Button";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import LogoutBtn from "./button/Logout/Logout";
+import LoadingBar from 'react-top-loading-bar'
+
 
 const FacebookPageGrid = () => {
+  const ref = useRef(null)
+
   const navigate = useNavigate();
   const BASE_URL = process.env.REACT_APP_BASE_URL;
   const token = localStorage.getItem("token");
@@ -19,6 +23,7 @@ const FacebookPageGrid = () => {
   const [fetchedData, setFetchedData] = useState();
 
   const getUser = () => {
+    ref.current.continuousStart()
     fetch(`${BASE_URL}instagram/auth/success`, {
       method: "GET",
       credentials: "include",
@@ -34,16 +39,19 @@ const FacebookPageGrid = () => {
         throw new Error("authentication has been failed!");
       })
       .then((resObject) => {
+        ref.current.complete()
         setFetchedData(resObject.data);
         console.log(resObject, "fetchedData");
       })
       .catch((err) => {
         console.log(err);
+        ref.current.complete()
       });
   };
 
   useEffect(() => {
     if (status === "true") {
+      
       getUser();
     } else if (status === "false") {
       getUser();
@@ -83,7 +91,7 @@ const FacebookPageGrid = () => {
 
     setTimeout(() => {
       myWindow.close();
-    }, 1000);
+    }, 2000);
 
     navigate("/");
   };
@@ -91,6 +99,7 @@ const FacebookPageGrid = () => {
   return (
     <>
       <div className="profile-container">
+       <LoadingBar color='#f11946' ref={ref} />
         {/* <div className="profile-header">
           <div className="profile-image">
             <img
