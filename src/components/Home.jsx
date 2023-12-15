@@ -83,7 +83,7 @@ const FacebookPageGrid = () => {
 
     setTimeout(() => {
       myWindow.close();
-    }, 100);
+    }, 1000);
 
     navigate("/");
   };
